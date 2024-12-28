@@ -1,0 +1,17 @@
+FROM golang:alpine
+
+WORKDIR /app
+
+# Install required tools including Air
+RUN apk add --no-cache gcc musl-dev git
+RUN go install github.com/cosmtrek/air@latest
+
+# Copy go mod files
+COPY go.mod go.sum ./
+RUN go mod download
+
+# Copy the rest of the application
+COPY . .
+
+# Command to run Air
+ENTRYPOINT ["air"]
