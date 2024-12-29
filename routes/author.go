@@ -1,8 +1,9 @@
 package routes
 
 import (
+	"simple-elearning-backend/controllers/authorcontroller"
+
 	"github.com/gorilla/mux"
-	"github.com/mrtzee/go-api-native/controllers/authorcontroller"
 )
 
 func AuthorRoutes(r *mux.Router) {

@@ -3,7 +3,8 @@ package config
 import (
 	"fmt"
 
-	"github.com/mrtzee/go-api-native/models"
+	"simple-elearning-backend/models"
+
 	log "github.com/sirupsen/logrus"
 
 	"gorm.io/driver/mysql"

@@ -1,4 +1,4 @@
-package authorcontroller
+package usercontroller
 
 import (
 	"encoding/json"
@@ -16,89 +16,89 @@ import (
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
-	var author []models.Author
+	var users []models.User
 
-	if err := config.DB.Find(&author).Error; err != nil {
+	if err := config.DB.Find(&users).Error; err != nil {
 		helper.Response(w, 500, err.Error(), nil)
 		return
 	}
 
-	helper.Response(w, 200, "List Author's", author)
+	helper.Response(w, 200, "List Users", users)
 }
 
 func Create(w http.ResponseWriter, r *http.Request) {
-	var author models.Author
+	var user models.User
 
-	if err := json.NewDecoder(r.Body).Decode(&author); err != nil {
+	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
 		helper.Response(w, 500, err.Error(), nil)
 		return
 	}
 
 	defer r.Body.Close()
 
-	if err := config.DB.Create(&author).Error; err != nil {
+	if err := config.DB.Create(&user).Error; err != nil {
 		helper.Response(w, 500, err.Error(), nil)
 		return
 	}
 
-	helper.Response(w, 201, "Success create author", nil)
+	helper.Response(w, 201, "Success Create User", nil)
 }
 
 func Detail(w http.ResponseWriter, r *http.Request) {
 	idParams := mux.Vars(r)["id"]
 	id, _ := strconv.Atoi(idParams)
 
-	var author models.Author
+	var user models.User
 
-	if err := config.DB.First(&author, id).Error; err != nil {
+	if err := config.DB.First(&user, id).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			helper.Response(w, 404, "Author Not Found", nil)
+			helper.Response(w, 404, "User Not Found", nil)
 			return
 		}
 		helper.Response(w, 500, err.Error(), nil)
 		return
 	}
 
-	helper.Response(w, 200, "Detail Author", author)
+	helper.Response(w, 200, "Detail User", user)
 }
 
 func Update(w http.ResponseWriter, r *http.Request) {
 	idParams := mux.Vars(r)["id"]
 	id, _ := strconv.Atoi(idParams)
 
-	var author models.Author
+	var user models.User
 
-	if err := config.DB.First(&author, id).Error; err != nil {
+	if err := config.DB.First(&user, id).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
-			helper.Response(w, 404, "Author Not Found", nil)
+			helper.Response(w, 404, "User Not Found", nil)
 			return
 		}
 		helper.Response(w, 500, err.Error(), nil)
 		return
 	}
 
-	if err := json.NewDecoder(r.Body).Decode(&author); err != nil {
+	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
 		helper.Response(w, 500, err.Error(), nil)
 		return
 	}
 
 	defer r.Body.Close()
 
-	if err := config.DB.Where("id = ?", id).Updates(&author).Error; err != nil {
+	if err := config.DB.Where("id = ?", id).Updates(&user).Error; err != nil {
 		helper.Response(w, 500, err.Error(), nil)
 		return
 	}
 
-	helper.Response(w, 201, "Success Update Author", nil)
+	helper.Response(w, 201, "Success Update User", nil)
 }
 
 func Delete(w http.ResponseWriter, r *http.Request) {
 	idParams := mux.Vars(r)["id"]
 	id, _ := strconv.Atoi(idParams)
 
-	var author models.Author
+	var user models.User
 
-	res := config.DB.Delete(&author, id)
+	res := config.DB.Delete(&user, id)
 
 	if res.Error != nil {
 		helper.Response(w, 500, res.Error.Error(), nil)
@@ -106,9 +106,9 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if res.RowsAffected == 0 {
-		helper.Response(w, 500, "Author Not Found", nil)
+		helper.Response(w, 404, "User Not Found", nil)
 		return
 	}
 
-	helper.Response(w, 200, "Success Delete Author", nil)
+	helper.Response(w, 200, "Success Delete User", nil)
 }

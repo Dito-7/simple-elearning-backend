@@ -1,18 +1,17 @@
 package routes
 
 import (
-	"github.com/Dito-7/simple-elearning-backend/controllers"
+	"simple-elearning-backend/controllers/schedulecontroller"
+
 	"github.com/gorilla/mux"
 )
 
-// Schedule Routes
 func ScheduleRoutes(r *mux.Router) {
-	router := r.PathPrefix("/schedules").Subrouter()
+	router := r.PathPrefix("/user").Subrouter()
 
-	// Schedule Routes
-	router.HandleFunc("", controllers.ScheduleController{}.Index).Methods("GET")
-	router.HandleFunc("", controllers.ScheduleController{}.Create).Methods("POST")
-	router.HandleFunc("/{id}/detail", controllers.ScheduleController{}.Detail).Methods("GET")
-	router.HandleFunc("/{id}/update", controllers.ScheduleController{}.Update).Methods("PUT")
-	router.HandleFunc("/{id}/delete", controllers.ScheduleController{}.Delete).Methods("DELETE")
+	router.HandleFunc("", schedulecontroller.Index).Methods("GET")
+	router.HandleFunc("", schedulecontroller.Create).Methods("POST")
+	router.HandleFunc("/{id}/detail", schedulecontroller.Detail).Methods("GET")
+	router.HandleFunc("/{id}/update", schedulecontroller.Update).Methods("PUT")
+	router.HandleFunc("/{id}/delete", schedulecontroller.Delete).Methods("DELETE")
 }

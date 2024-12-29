@@ -6,10 +6,11 @@ import (
 	"net/http"
 	"strconv"
 
+	"simple-elearning-backend/config"
+	"simple-elearning-backend/helper"
+	"simple-elearning-backend/models"
+
 	"github.com/gorilla/mux"
-	"github.com/mrtzee/go-api-native/config"
-	"github.com/mrtzee/go-api-native/helper"
-	"github.com/mrtzee/go-api-native/models"
 	"gorm.io/gorm"
 )
 

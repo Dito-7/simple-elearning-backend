@@ -6,9 +6,10 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
+	"simple-elearning-backend/config"
+	"simple-elearning-backend/routes"
+
 	"github.com/gorilla/mux"
-	"github.com/mrtzee/go-api-native/config"
-	"github.com/mrtzee/go-api-native/routes"
 )
 
 func main() {

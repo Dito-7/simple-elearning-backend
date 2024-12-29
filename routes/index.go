@@ -6,6 +6,8 @@ func RoutesIndex(r *mux.Router) {
 	api := r.PathPrefix("/api").Subrouter()
 	AuthorRoutes(api)
 	BookRoutes(api)
+	ClassRoutes(api)
+	AttendanceRoutes(api)
 	UserRoutes(api)
 	ScheduleRoutes(api)
 }
